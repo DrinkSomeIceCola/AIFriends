@@ -4,9 +4,15 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import path from 'path'
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
+
 
 // https://vite.dev/config/
 export default defineConfig({
+  plugins: [
+    tailwindcss(),
+  ],
   build: {
     outDir: path.resolve(__dirname, '../backend/static/frontend'), // 打包到 Django static
     emptyOutDir: true,
