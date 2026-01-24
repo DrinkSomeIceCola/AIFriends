@@ -1,7 +1,57 @@
+# Django
+*.sqlite3
+*.db
+db.sqlite3
+db.sqlite3-journal
+
+# Python
 __pycache__/
 *.py[cod]
-.idea/
-db.sqlite3
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 包管理
+Pipfile.lock
+poetry.lock
+requirements.txt.lock
+
+# 媒体和静态文件
 media/
 staticfiles/
-static/
+static_collected/
+
+# 环境变量
+.env
+.env.local
+.secrets/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 日志和缓存
+*.log
+.cache/
+.pytest_cache/
+.mypy_cache/
+
+# 本地设置
+local_settings.py
+settings/local.py
