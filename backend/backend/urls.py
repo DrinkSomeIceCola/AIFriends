@@ -16,16 +16,15 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("",include('web.urls'))
 ]
 
 from django.conf import settings
 from django.conf.urls.static import static
-
-...
 
 # 仅限开发阶段使用。生产阶段需要在nginx里配置。
 if settings.DEBUG:
