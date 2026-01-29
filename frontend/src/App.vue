@@ -5,7 +5,7 @@ import NavBar from "@/components/navbar/NavBar.vue";
 
 <template>
   <nav-bar>
-    页面内容
+    <router-view/>
   </nav-bar>
 </template>
 
