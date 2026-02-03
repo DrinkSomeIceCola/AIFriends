@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -7,14 +7,15 @@ from web.models.user import UserProfile
 
 
 class RegisterView(APIView):
-    def post(self, request):
+    def post(self,request):
         try:
-            username = request.data.get('username').strip()
-            password = request.data.get('password').strip()
+            username = request.data['username'].strip()
+            password = request.data['password'].strip()
             if not username or not password:
                 return Response({
                     'result': '用户名和密码不能为空'
                 })
+            from django.contrib.auth.models import User
             if User.objects.filter(username=username).exists():
                 return Response({
                     'result': '用户名已存在'
@@ -41,5 +42,5 @@ class RegisterView(APIView):
             return response
         except:
             return Response({
-                'result': '系统异常，请稍后重试'
+                'result': '系统异常，请稍后再试'
             })
