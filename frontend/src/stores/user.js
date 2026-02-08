@@ -47,6 +47,6 @@ export const useUserStore = defineStore('user', () => {
         setUserInfo,
         logout,
         hasPulledUserInfo,
-        // setHasPulledUserInfo,
+        setHasPulledUserInfo,
     }
 })
