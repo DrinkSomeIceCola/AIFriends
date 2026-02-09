@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
+from sympy import false
 
 from backend import settings
 
@@ -14,7 +15,7 @@ class RefreshTokenView(APIView):
                     'result': 'refresh token不存在'
                 },status=401)
             refresh = RefreshToken(refresh_token)
-            if settings.SIMPLE_JWT['ROTATE_REFRESH_TOKEN']:
+            if settings.SIMPLE_JWT['ROTATE_REFRESH_TOKENS']:
                 refresh.set_jti()
                 response = Response({
                     'result': 'success',
@@ -24,8 +25,8 @@ class RefreshTokenView(APIView):
                     key='refresh_token',
                     value=str(refresh),
                     httponly=True,
-                    samesite='Lax',
-                    secure=True,
+                    samesite='lax',
+                    secure=False,
                     max_age=86400 * 7,
                 )
                 return response

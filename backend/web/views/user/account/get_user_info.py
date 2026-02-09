@@ -14,10 +14,12 @@ class GetUserInfoView(APIView):
                 'result': 'success',
                 'user_id': user.id,
                 'username': user.username,
-                'photo': user_profile.photo,
+                'photo': user_profile.photo.url,
                 'profile': user_profile.profile,
             })
         except:
+            import traceback
+            traceback.print_exc()
             return Response({
                 'result': '系统异常，请稍后重试',
             })
