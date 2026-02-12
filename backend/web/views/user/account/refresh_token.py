@@ -26,7 +26,7 @@ class RefreshTokenView(APIView):
                     value=str(refresh),
                     httponly=True,
                     samesite='lax',
-                    secure=False,
+                    secure=True,
                     max_age=86400 * 7,
                 )
                 return response
