@@ -25,7 +25,6 @@ async function handleLogin() {
       })
       const data = res.data
       if(data.result === 'success') {
-        console.log('登录成功')
         user.setAccessToken(data.access)
         user.setUserInfo(data)
         await router.push({
@@ -35,7 +34,7 @@ async function handleLogin() {
         errorMessage.value = data.result
       }
       }catch (err) {
-      console.log(err)
+
     }
   }
 }

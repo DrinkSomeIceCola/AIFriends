@@ -16,9 +16,11 @@ class RemoveCharacterView(APIView):
             remove_old_photo(character.background_image)
             character.delete()
             return Response({
-                'status': 'success',
+                'result': 'success',
             })
         except:
+            import traceback
+            traceback.print_exc()
             return Response({
                 'result': '系统异常，请稍后重试'
             })
