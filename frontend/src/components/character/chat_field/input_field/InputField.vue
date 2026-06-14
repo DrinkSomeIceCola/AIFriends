@@ -1,10 +1,11 @@
 <script setup>
 import SendIcon from "@/components/character/icons/SendIcon.vue";
 import MicIcon from "@/components/character/icons/MicIcon.vue";
-import {useTemplateRef,ref} from "vue";
+import {ref, useTemplateRef} from "vue";
 import streamApi from "@/js/http/streamApi.js";
 
 const props = defineProps(['friendId'])
+const emit = defineEmits(['pushBackMessage', 'addToLastMessage'])
 const inputRef = useTemplateRef('input-ref')
 const message = ref('')
 let isProcessing = false
@@ -13,34 +14,42 @@ function focus() {
   inputRef.value.focus()
 }
 
-defineExpose({
-  focus,
-})
+async function handleSend() {
+  if (isProcessing) return
+  isProcessing = true
 
-async function handleSend(){
   const content = message.value.trim()
   if (!content) return
   message.value = ''
+
+  emit('pushBackMessage', {role: 'user', content: content, id: crypto.randomUUID()})
+  emit('pushBackMessage', {role: 'ai', content: '', id: crypto.randomUUID()})
+
   try {
-    const res = await streamApi('/api/friend/message/chat/',{
+    await streamApi('/api/friend/message/chat/', {
       body: {
         friend_id: props.friendId,
         message: content,
       },
-      onmessage(data,isDone) {
+      onmessage(data, isDone) {
         if (isDone) {
           isProcessing = false
+        } else if (data.content) {
+          emit('addToLastMessage', data.content)
         }
-        console.log(data)
       },
       onerror(err) {
         isProcessing = false
       },
     })
-  }catch (err){
+  } catch (err) {
     isProcessing = false
   }
 }
+
+defineExpose({
+  focus,
+})
 </script>
 
 <template>

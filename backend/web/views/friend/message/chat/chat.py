@@ -10,11 +10,13 @@ from rest_framework.permissions import IsAuthenticated
 from web.models.friend import Friend, Message
 from web.views.friend.message.chat.graph import ChatGraph
 
+
 class SSERenderer(BaseRenderer):
     media_type = 'text/event-stream'
     format = 'txt'
     def render(self, data, accepted_media_type=None, renderer_context=None):
         return data
+
 
 class MessageChatView(APIView):
     permission_classes = [IsAuthenticated]
@@ -45,7 +47,7 @@ class MessageChatView(APIView):
                 if isinstance(msg, BaseMessageChunk):
                     if msg.content:
                         full_output += msg.content
-                        yield f'data: {json.dumps({'content': msg.content}, ensure_ascii=False)}\n\n'
+                        yield f"data: {json.dumps({'content': msg.content}, ensure_ascii=False)}\n\n"
                     if hasattr(msg, 'usage_metadata') and msg.usage_metadata:
                         full_usage = msg.usage_metadata
             yield 'data: [DONE]\n\n'
